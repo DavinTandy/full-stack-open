@@ -12,17 +12,28 @@ const Buttons = (props) => {
   )
 }
 
-const StatisticLine = (props) => <p>{props.text} {props.value}{props.text2}</p>
+const StatisticLine = (props) => {
+  return (
+    <tr>
+      <td>{props.text}</td>
+      <td>{props.value}{props.text2}</td>
+    </tr>
+  )
+}
 
 const Statistics = (props) => {
   return (
     <div>
-      <StatisticLine text="good" value={props.good} />
-      <StatisticLine text="neutral" value={props.neutral} />
-      <StatisticLine text="bad" value={props.bad} />
-      <StatisticLine text="all" value={props.good + props.neutral + props.bad} />
-      <StatisticLine text="average" value={(props.good - props.bad) / (props.good + props.neutral + props.bad)} />
-      <StatisticLine text="positive" value={props.good / (props.good + props.neutral + props.bad) * 100} text2="%" />
+      <table>
+        <tbody>
+          <StatisticLine text="good" value={props.good} />
+          <StatisticLine text="neutral" value={props.neutral} />
+          <StatisticLine text="bad" value={props.bad} />
+          <StatisticLine text="all" value={props.good + props.neutral + props.bad} />
+          <StatisticLine text="average" value={Math.floor((props.good - props.bad) / (props.good + props.neutral + props.bad) * 100) / 100} />
+          <StatisticLine text="positive" value={Math.floor(props.good / (props.good + props.neutral + props.bad) * 10000) / 100} text2="%" />
+        </tbody>
+      </table>
     </div>
   )
 }
