@@ -32,15 +32,21 @@ const App = () => {
     // increment the value in position 2 by one
     copy[selected] += 1
     setVotes(copy)
-    console.log(votes)
   }
+
+  const maxVotes = Math.max(...votes)
+  const maxVotesIndex = votes.indexOf(maxVotes)
 
   return (
     <div>
-      {anecdotes[selected]}
+      <h1>Anecdote of the day</h1>
+      <p>{anecdotes[selected]}</p>
       <p>has {votes[selected]} votes</p>
       <Button onClick={votesCounter} text="vote" />
       <Button onClick={randomNumberGenerator} text="next anecdote" />
+      <h1>Anecdote with most votes</h1>
+      <p>{anecdotes[maxVotesIndex]}</p>
+      <p>has {votes[maxVotesIndex]} votes</p>
     </div>
   )
 }
