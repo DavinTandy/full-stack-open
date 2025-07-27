@@ -8,6 +8,14 @@ const App = () => {
 
   const addContact = (event) => {
     event.preventDefault()
+
+    const nameExists = persons.some(person => person.name === newName)
+
+    if (nameExists) {
+      alert(`${newName} is already added to phonebook`)
+      return
+    }
+
     const newObject = {
       name: newName,
       id: String(persons.length + 1)
