@@ -1,5 +1,33 @@
 import { useState } from 'react'
 
+const Filter = ({ filterInput, handleFilterChange }) => {
+  return <div>filter shown with <input value={filterInput} onChange={handleFilterChange} /></div>
+}
+
+const PersonForm = ({ newName, newNumber, handleNameChange, handleNumberChange, addContact}) => {
+  return (
+  <form onSubmit={addContact}>
+    <div>
+      name: <input value={newName} onChange={handleNameChange}/>
+    </div>
+    <div>
+      number: <input value={newNumber} onChange={handleNumberChange}/>
+    </div>
+    <div>
+      <button type="submit">add</button>
+    </div>
+  </form>
+  )
+}
+
+const Contact = ({ contact }) => {
+  return <li>{contact.name} {contact.number}</li>
+}
+
+const Persons = ({ filteredContact }) => {
+  return <ul>{filteredContact.map(person => <Contact key={person.id} contact={person} />)}</ul>
+}
+
 const App = () => {
   const [persons, setPersons] = useState([
     { name: 'Arto Hellas', number: '040-123456', id: 1 },
@@ -48,34 +76,14 @@ const App = () => {
     setFilterInput(event.target.value)
   }
 
-  const Contact = ({ contact }) => {
-    return <li>{contact.name} {contact.number}</li>
-  }
-
   return (
     <div>
       <h2>Phonebook</h2>
-      <div>
-        filter shown with <input value={filterInput} onChange={handleFilterChange} />
-      </div>
-      <h2>add a new</h2>
-      <form onSubmit={addContact}>
-        <div>
-          name: <input value={newName} onChange={handleNameChange}/>
-        </div>
-        <div>
-          number: <input value={newNumber} onChange={handleNumberChange}/>
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
-      <h2>Numbers</h2>
-      <ul>
-        {filteredContact.map(person =>
-          <Contact key={person.id} contact={person} />
-        )}
-      </ul>
+      <Filter filterInput={filterInput} handleFilterChange={handleFilterChange} />
+      <h3>add a new</h3>
+      <PersonForm newName={newName} newNumber={newNumber} handleNameChange={handleNameChange} handleNumberChange={handleNumberChange} addContact={addContact} />
+      <h3>Numbers</h3>
+      <Persons filteredContact={filteredContact} />
     </div>
   )
 }
